@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="cart">Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Dark<span>Wear</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active" data-translate="home">Home</a></li>
+            <li><a href="account.html" data-translate="account">Account</a></li>
+            <li><a href="index.html#products" data-translate="products">Products</a></li>
+            <li>
+                <a href="cart.html">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </li>
+            <li id="user-info"></li>
+        </ul>
+    </nav>
+
+    <!-- Cart Section -->
+    <section class="products-section fade-section">
+        <h2 class="section-title" data-translate="cart">Cart</h2>
+        <div class="cart-container">
+            <table id="cart-table">
+                <thead>
+                    <tr>
+                        <th data-translate="product">Product</th>
+                        <th data-translate="price">Price</th>
+                        <th data-translate="quantity">Quantity</th>
+                        <th data-translate="subtotal">Subtotal</th>
+                        <th data-translate="remove">Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Products will be rendered here -->
+                </tbody>
+            </table>
+            <div class="cart-total">
+                <h3><span data-translate="total">Total</span>: $<span id="total-price">0</span></h3>
+                <button id="checkout-btn" class="btn" data-translate="checkout">Checkout</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+
+
+</body>
+
+</html>

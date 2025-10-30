@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-translate="home">Dark Fashion Store</title>
+
+    <!-- Fonts & Icons -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="navbar">
+        <div class="logo">1 <span>of 1</span></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#" class="active" data-translate="home">Home</a></li>
+                <li><a href="account.html" data-translate="account">Account</a></li>
+                <li><a href="#" data-translate="women">Women</a></li>
+                <li><a href="#" data-translate="accessories">Accessories</a></li>
+                <li>
+                    <a href="cart.html">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span id="cart-count">0</span>
+                    </a>
+                </li>
+                <li id="user-info">
+                    <!-- سيتم تعبئته بالاسم وزر Logout -->
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 data-translate="heroTitle">Unleash Your <span>Dark Style</span></h1>
+            <p data-translate="heroText">Explore the latest fashion trends with a modern dark aesthetic.</p>
+            <a href="#products" class="btn" data-translate="shopNow">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- search -->
+
+    <section class="filter-search">
+        <input type="text" id="search-input" placeholder="Search products..."data-translate-placeholder="searchPlaceholder" />
+        <div class="category-buttons">
+            <button class="filter-btn active" data-category="All" data-translate="all">All</button>
+            <button class="filter-btn" data-category="Men" data-translate="men">Men</button>
+            <button class="filter-btn" data-category="Women" data-translate="women">Women</button>
+            <button class="filter-btn" data-category="Accessories" data-translate="accessories">Accessories</button>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+
+    <section id="products" class="products-section">
+        <h2 class="section-title" data-translate="ourCollection">Our Collection</h2>
+        <div class="product-grid" id="product-list">
+            <!-- Products will be loaded dynamically via main.js -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+
+    <footer class="footer">
+        <p data-translate="copyright">© 2025 DarkWear. All rights reserved.</p>
+        <div class="socials">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+
+    <!-- JS -->
+
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>

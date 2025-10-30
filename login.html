@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="login_title">Login | DarkWear</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+
+    <div class="login-container fade-section">
+        <form id="login-form">
+            <h2 data-translate="login_heading">Login</h2>
+
+            <label for="email" data-translate="email_label">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" data-translate-placeholder="email_placeholder"
+                required>
+
+            <label for="password" data-translate="password_label">Password</label>
+            <input type="password" id="password" placeholder="Enter your password"
+                data-translate-placeholder="password_placeholder" required>
+
+            <button type="submit" class="btn" data-translate="login_btn">Login</button>
+            <p class="signup-text">
+                <span data-translate="no_account">Don't have an account?</span>
+                <a href="register.html" data-translate="signup_link">Sign Up</a>
+            </p>
+        </form>
+    </div>
+
+    <script src="js/translations.js"></script>
+    <script src="js/login.js"></script>
+
+
+</body>
+
+</html>

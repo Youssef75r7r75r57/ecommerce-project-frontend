@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Black Leather Jacket",
+        "category": "Men",
+        "price": 120,
+        "image": "https://www.fakera.com/wp-content/uploads/2021/06/33540492_1552809114834292_3781255573509505024_n-640x640.jpg "
+    },
+    {
+        "id": 2,
+        "name": "Red Evening Dress",
+        "category": "Women",
+        "price": 150,
+        "image": "https://www.fakera.com/wp-content/uploads/2021/06/hkhr-1.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Denim Jeans",
+        "category": "Men",
+        "price": 70,
+        "image": "https://www.fakera.com/wp-content/uploads/2021/06/%D8%AA%D9%86%D8%B3%D9%8A%D9%82-%D8%A7%D9%84%D8%B4%D9%88%D8%B1%D8%AA-%D9%84%D9%84%D8%B1%D8%AC%D8%A7%D9%84-13-500x700.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Stylish Hat",
+        "category": "Accessories",
+        "price": 40,
+        "image": "https://www.fakera.com/wp-content/uploads/2020/06/75d31bf20e9cf68ab357d32900997a77.jpg"
+    },
+        {
+        "id": 5,
+        "name": "Stylish Hassat",
+        "category": "Accessories",
+        "price": 600,
+        "image": "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=500&q=80"
+    }
+]

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="account">Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">My<span>Store</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html" data-translate="home">Home</a></li>
+            <li><a href="account.html" class="active" data-translate="account">Account</a></li>
+            <li>
+                <a href="cart.html">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </li>
+            <li id="user-info"></li>
+        </ul>
+    </nav>
+
+
+    <section class="account-section">
+        <div class="account-container">
+            <aside class="sidebar">
+                <ul>
+                    <li><a href="#" class="tab-link active" data-tab="profile" data-translate="profile">Profile</a></li>
+                    <li><a href="#" class="tab-link" data-tab="orders" data-translate="orders">Orders</a></li>
+                    <li><a href="#" class="tab-link" data-tab="wishlist" data-translate="wishlist">Wishlist</a></li>
+                    <li><a href="#" class="tab-link" data-tab="settings" data-translate="settings">Settings</a></li>
+                </ul>
+            </aside>
+
+            <div class="tab-content">
+                <!-- Profile -->
+                <div id="profile" class="tab active">
+                    <h2 class="hia" data-translate="profileInfo">Profile Info</h2>
+                    <form id="profile-form">
+                        <label data-translate="name">Name</label>
+                        <input type="text" id="profile-name" data-translate-placeholder="Enter_name_placeholder" placeholder="Enter name">
+                        <label data-translate="email">Email</label>
+                        <input type="email" id="profile-email" data-translate-placeholder="Enter_email_placeholder" placeholder="Enter email">
+                        <label data-translate="password">Password</label>
+                        <input type="password" id="profile-password" data-translate-placeholder="Change_password_placeholder" placeholder="Change password">
+                        <button type="submit" class="btn" data-translate="saveChanges">Save Changes</button>
+                    </form>
+                </div>
+
+                <!-- Orders -->
+                <div id="orders" class="tab">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h2 class="hia" data-translate="myOrders">My Orders</h2>
+                    </div>
+                    <table id="orders-table">
+                        <thead>
+                            <tr>
+                                <th data-translate="orderNumber">Order #</th>
+                                <th data-translate="products">Products</th>
+                                <th data-translate="total">Total</th>
+                                <th data-translate="status">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <!-- Wishlist -->
+                <div id="wishlist" class="tab">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h2 class="hia" data-translate="wishlist">Wishlist</h2>
+                        <button id="clear-wishlist" class="btn-small" style="background:#f44336; color:#fff;"
+                            data-translate="clearAll">Clear All</button>
+                    </div>
+                    <div class="wishlist-grid" id="wishlist-grid"></div>
+                </div>
+
+                <!-- Settings -->
+                <div id="settings" class="tab">
+                    <h2 class="hia" data-translate="settings">Settings</h2>
+                    <form id="settings-form">
+                        <label data-translate="language">Language:</label>
+                        <select id="language-select">
+                            <option value="en">English</option>
+                            <option value="ar">Arabic</option>
+                        </select>
+                        <button type="submit" class="btn" data-translate="saveSettings">Save Settings</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/account.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="pageTitle">Product Details</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">Dark<span>Wear</span></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active" data-translate="home">Home</a></li>
+                <li><a href="account.html" data-translate="account">account</a></li>
+                <li>
+                    <a href="cart.html">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span id="cart-count">0</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail">
+        <div class="container">
+            <div class="product-image">
+                <img id="product-img" src="" alt="Product Image">
+            </div>
+            <div class="product-info">
+                <h2 id="product-name" data-translate="productName">Product Name</h2>
+                <p class="price" id="product-price">$0</p>
+                <p class="description" id="product-desc">
+                    This is a stylish product perfect for your collection.
+                </p>
+                <button id="add-to-cart-btn" class="btn" data-translate="addToCart">Add to Cart</button>
+                <button id="add-to-Wishlist-btn">♥</button>
+
+                <a href="index.html" class="btn" data-translate="backToStore">Back to Store</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/product.js"></script>
+</body>
+
+</html>
