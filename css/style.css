@@ -14,8 +14,15 @@ body {
     scroll-behavior: smooth;
 }
 
+@media (max-width: 576px) {
+    body {
+        font-size: 16px;
+        padding: 10px;
+    }
+}
+
 /* =========================
-   Navbar
+    Navbar
 ========================= */
 .navbar {
     display: flex;
@@ -58,7 +65,7 @@ body {
     transition: 0.3s ease;
 }
 
-.nav-links a:hover{
+.nav-links a:hover {
     color: #d4af37;
 }
 
@@ -327,9 +334,11 @@ body {
     outline: none;
     font-size: 1rem;
 }
-#search-input:hover{
+
+#search-input:hover {
     box-shadow: 0 2px 6px 1px rgb(240, 237, 75);
 }
+
 .category-buttons {
     display: flex;
     gap: 15px;
@@ -718,6 +727,17 @@ td {
     background-color: #0e0e0e;
     color: #d4af37;
 }
+/* ====== موبايل: شاشات أصغر من 600px ====== */
+@media (max-width: 600px) {
+    .hia {
+        margin: 5px;       /* بدل المارجن الكبير */
+        padding: 8px;      /* تصغير/تعديل البادينج */
+        width: auto;       /* ياخد عرض الشاشة تقريبًا */
+        border-radius: 8px; /* اختياري لجعل الشكل أجمل */
+        text-align: center; /* اختياري لجعل النص في المنتصف */
+    }
+}
+/* ============================================= */
 
 #profile-form {
     display: block;
@@ -735,6 +755,20 @@ td {
     box-shadow: 0 2px 10px rgba(110, 110, 110, 0.4);
 
 }
+
+/* ====== موبايل: شاشات أصغر من 600px ====== */
+@media (max-width: 600px) {
+    #profile-form {
+        margin: 10px; /* بدل المارجن الكبير */
+        padding: 15px; /* تصغير البادينج */
+        border-radius: 12px; /* تصغير الـ radius */
+        width: auto; /* ياخد العرض كامل تقريبًا */
+        box-shadow: 0 2px 8px rgba(110, 110, 110, 0.3); /* ظلال أخف */
+    }
+}
+
+/* ============================================== */
+
 
 #profile-form label {
     display: block;
@@ -786,11 +820,11 @@ td {
     background-color: #c39b2f;
 }
 
-#settings-form .btn{
+#settings-form .btn {
     display: grid;
 
 }
 
-.user-name{
+.user-name {
     direction: ltr !important;
 }
