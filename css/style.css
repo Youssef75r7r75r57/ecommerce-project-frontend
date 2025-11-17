@@ -799,6 +799,15 @@ td {
     margin-top: 30px;
     margin-left: 143px;
 }
+/* ====== موبايل: شاشات أصغر من 600px ====== */
+@media (max-width: 600px) {
+    #profile-form .btn {
+        display: block;
+        width: 100%;         /* ياخد العرض كامل */
+        margin: 15px 0 0 0;  /* بدل المارجن الكبير */
+        padding: 10px;       /* تعديل البادينج ليبقى مناسب */
+    }
+}
 
 /* Buttons */
 .btn-small,
