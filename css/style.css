@@ -112,6 +112,20 @@ body {
     direction: ltr !important;
 }
 
+.fa-right-from-bracket {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 30px;
+    background-color: #d4af37;
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: 0.3s ease;
+    animation: fadeInUp 1.8s ease forwards;
+    direction: ltr !important;
+}
+
 .btn:hover {
     background-color: #fff;
     transform: scale(1.05);

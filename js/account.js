@@ -66,9 +66,7 @@ function renderNavbarUser() {
             style="color:#d4af37; font-weight:600; display:inline-block;">
             ${greetingText}
         </span>
-        <button id="logout-btn" class="btn" style="padding:5px 10px; font-size:0.8rem; margin-left:10px;">
-            ${translations[currentLang].logout}
-        </button>`;
+            <i id="logout-btn" style="padding:5px 10px; font-size:0.8rem; margin-left:10px;" class="fa-solid fa-right-from-bracket">${translations[currentLang].logout}</i>`;
 
     const logoutBtn = document.getElementById("logout-btn");
     logoutBtn.addEventListener("click", () => {
