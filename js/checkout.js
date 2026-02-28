@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const cartCount = document.getElementById("cart-count");
     const userInfo = document.getElementById("user-info");
     const checkoutItems = document.getElementById("checkout-items");
@@ -8,9 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalEl = document.getElementById("summary-total");
 
     const shippingCost = 5;
-    // Google Apps Script webhook URL
     const SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbz3ge9wZR2EJd54TV_MZXQ0mPQSDO1kgkZ57w6b7F3FHmS8TfiKvaxRkZOMoHIZ8X2R/exec";
-    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    let currentUser = await usersStore.syncCurrentUserFromStore();
 
     if (!currentUser) {
         alert("Please login first!");
@@ -25,18 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    function updateCurrentUser(user) {
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-        const index = users.findIndex((u) => u.email === user.email);
-
-        if (index !== -1) {
-            users[index] = user;
-        } else {
-            users.push(user);
-        }
-
-        localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("currentUser", JSON.stringify(user));
+    async function updateCurrentUser(user) {
+        await usersStore.upsertUser(user);
+        currentUser = usersStore.getCurrentUser();
     }
 
     function renderUser() {
@@ -50,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const logoutBtn = document.getElementById("logout-btn");
         logoutBtn.addEventListener("click", () => {
-            localStorage.removeItem("currentUser");
+            usersStore.clearCurrentUser();
             window.location.href = "index.html";
         });
     }
@@ -155,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentUser.orders.push(order);
         currentUser.cart = [];
         cart = [];
-        updateCurrentUser(currentUser);
+        await updateCurrentUser(currentUser);
 
         try {
             await sendOrderToSheet(order);

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data/pngtree-online-shop-logo-design-png-image_4847485.jpg">
 </head>
 
 <body>
@@ -29,6 +30,7 @@
             <div class="admin-tabs">
                 <button class="admin-tab-btn active" data-tab="orders-tab" data-translate="manageOrders">Manage Orders</button>
                 <button class="admin-tab-btn" data-tab="products-tab" data-translate="manageProducts">Manage Products</button>
+                <button class="admin-tab-btn" data-tab="users-tab">Manage Users</button>
             </div>
 
             <div id="orders-tab" class="admin-tab active">
@@ -98,10 +100,32 @@
                     </div>
                 </div>
             </div>
+
+            <div id="users-tab" class="admin-tab">
+                <div class="admin-card">
+                    <h3>Manage Users</h3>
+                    <div class="table-wrap">
+                        <table id="admin-users-table" class="admin-data-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Orders</th>
+                                    <th>Cart Items</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <script src="js/translations.js"></script>
+    <script src="js/usersStore.js"></script>
     <script src="js/admin.js"></script>
 </body>
 

@@ -1,7 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const registerForm = document.getElementById("register-form");
 
-    registerForm.addEventListener("submit", (e) => {
+    registerForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const name = document.getElementById("name").value.trim();
@@ -19,24 +19,23 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Load users from LocalStorage or create empty array
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-
-        // Check if email already exists
-        const existingUser = users.find(user => user.email === email);
+        const users = await usersStore.getUsers();
+        const existingUser = users.find((user) => user.email === email);
         if (existingUser) {
             alert("Email already registered!");
             return;
         }
 
-        // Add new user
         users.push({
-            name: name,
-            email: email,
-            password: password,
-            cart: [] // السلة الخاصة بالمستخدم
+            name,
+            email,
+            password,
+            cart: [],
+            wishlist: [],
+            orders: []
         });
-        localStorage.setItem("users", JSON.stringify(users));
+
+        await usersStore.saveUsers(users);
 
         alert("Registration successful! Please login.");
         window.location.href = "login.html";

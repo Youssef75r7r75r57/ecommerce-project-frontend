@@ -1605,7 +1605,7 @@ h1, h2, h3, h4 {
     .admin-tabs {
         width: 100%;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 

@@ -1,7 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const loginForm = document.getElementById("login-form");
 
-    loginForm.addEventListener("submit", (e) => {
+    loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const email = document.getElementById("email").value.trim();
@@ -12,11 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Simulate login (for portfolio, no backend)
-        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const users = await usersStore.getUsers();
         const user = users.find(u => u.email === email && u.password === password);
         if (user) {
-            localStorage.setItem("currentUser", JSON.stringify(user));
+            usersStore.setCurrentUser(user);
             alert("Login successful!");
             window.location.href = "index.html";
         } else {

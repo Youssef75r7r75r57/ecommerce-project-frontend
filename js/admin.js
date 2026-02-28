@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const adminContentEl = document.getElementById("admin-content");
     const ordersBody = document.querySelector("#admin-orders-table tbody");
     const productsBody = document.querySelector("#admin-products-table tbody");
+    const usersBody = document.querySelector("#admin-users-table tbody");
     const productForm = document.getElementById("product-form");
     const resetProductFormBtn = document.getElementById("reset-product-form");
     const productIdInput = document.getElementById("product-id");
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const ADMIN_EMAIL = "youssefadmin@gmail.com";
     const ADMIN_PASSWORD = "adminY&M2005";
 
-    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    let currentUser = await usersStore.syncCurrentUserFromStore();
     const t = (key, fallback) => (translations?.[currentLang]?.[key] || fallback);
 
     if (!currentUser) {
@@ -41,8 +42,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     let products = [];
     try {
         products = await loadProducts();
-        renderOrders();
+        await renderOrders();
         renderProductsTable();
+        await renderUsersTable();
     } catch (error) {
         console.error("Admin page failed to initialize:", error);
         adminContentEl.style.display = "none";
@@ -101,17 +103,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    function updateUsers(users) {
-        localStorage.setItem("users", JSON.stringify(users));
+    async function updateUsers(users) {
+        await usersStore.saveUsers(users);
         const refreshedCurrentUser = users.find((u) => u.email === currentUser.email);
         if (refreshedCurrentUser) {
             currentUser = refreshedCurrentUser;
-            localStorage.setItem("currentUser", JSON.stringify(currentUser));
+            usersStore.setCurrentUser(currentUser);
         }
     }
 
-    function renderOrders() {
-        const users = JSON.parse(localStorage.getItem("users")) || [];
+    async function renderOrders() {
+        const users = await usersStore.getUsers();
         const allOrders = [];
 
         users.forEach((user, userIndex) => {
@@ -150,26 +152,85 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         document.querySelectorAll(".admin-status-select").forEach((select) => {
-            select.addEventListener("change", (e) => {
+            select.addEventListener("change", async (e) => {
                 const userIndex = Number(e.target.dataset.user);
                 const orderIndex = Number(e.target.dataset.order);
-                const users = JSON.parse(localStorage.getItem("users")) || [];
+                const users = await usersStore.getUsers();
 
                 users[userIndex].orders[orderIndex].status = e.target.value;
-                updateUsers(users);
-                renderOrders();
+                await updateUsers(users);
+                await renderOrders();
+                await renderUsersTable();
             });
         });
 
         document.querySelectorAll(".admin-delete-order").forEach((btn) => {
-            btn.addEventListener("click", (e) => {
+            btn.addEventListener("click", async (e) => {
                 const userIndex = Number(e.target.dataset.user);
                 const orderIndex = Number(e.target.dataset.order);
-                const users = JSON.parse(localStorage.getItem("users")) || [];
+                const users = await usersStore.getUsers();
 
                 users[userIndex].orders.splice(orderIndex, 1);
-                updateUsers(users);
-                renderOrders();
+                await updateUsers(users);
+                await renderOrders();
+                await renderUsersTable();
+            });
+        });
+    }
+
+    async function renderUsersTable() {
+        if (!usersBody) return;
+        const users = await usersStore.getUsers();
+
+        usersBody.innerHTML = "";
+        if (!users.length) {
+            usersBody.innerHTML = '<tr><td colspan="6" class="muted-cell">No users found.</td></tr>';
+            return;
+        }
+
+        users.forEach((user, index) => {
+            const tr = document.createElement("tr");
+            const isCoreAdmin = (user.email || "").toLowerCase() === ADMIN_EMAIL;
+            const ordersCount = (user.orders || []).length;
+            const cartCount = (user.cart || []).reduce((sum, item) => sum + (item.quantity || 0), 0);
+
+            tr.innerHTML = `
+                <td data-label="#">${index + 1}</td>
+                <td data-label="Name">${user.name || "-"}</td>
+                <td data-label="Email">${user.email || "-"}</td>
+                <td data-label="Orders">${ordersCount}</td>
+                <td data-label="Cart Items">${cartCount}</td>
+                <td data-label="Actions" class="admin-actions-cell">
+                    <button class="btn-small admin-copy-email" data-email="${user.email || ""}">Copy Email</button>
+                    ${isCoreAdmin ? "" : `<button class="btn-small admin-delete-user danger-btn" data-email="${user.email || ""}">Delete User</button>`}
+                </td>
+            `;
+            usersBody.appendChild(tr);
+        });
+
+        document.querySelectorAll(".admin-copy-email").forEach((btn) => {
+            btn.addEventListener("click", async (e) => {
+                const email = e.currentTarget.dataset.email || "";
+                try {
+                    await navigator.clipboard.writeText(email);
+                    alert("Email copied.");
+                } catch (error) {
+                    alert(email);
+                }
+            });
+        });
+
+        document.querySelectorAll(".admin-delete-user").forEach((btn) => {
+            btn.addEventListener("click", async (e) => {
+                const email = e.currentTarget.dataset.email || "";
+                if (!email) return;
+                if (!confirm(`Delete user ${email}?`)) return;
+
+                const users = await usersStore.getUsers();
+                const filtered = users.filter((u) => u.email !== email);
+                await updateUsers(filtered);
+                await renderUsersTable();
+                await renderOrders();
             });
         });
     }
@@ -271,7 +332,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const logoutBtn = document.getElementById("logout-btn");
         if (!logoutBtn) return;
         logoutBtn.addEventListener("click", () => {
-            localStorage.removeItem("currentUser");
+            usersStore.clearCurrentUser();
             window.location.href = "login.html";
         });
     }

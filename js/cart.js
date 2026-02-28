@@ -1,10 +1,10 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const cartTableBody = document.querySelector("#cart-table tbody");
     const totalPriceEl = document.getElementById("total-price");
     const cartCount = document.getElementById("cart-count");
     const checkoutBtn = document.getElementById("checkout-btn");
 
-    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    let currentUser = await usersStore.syncCurrentUserFromStore();
     if (!currentUser) {
         alert("Please login first!");
         window.location.href = "login.html";
@@ -14,21 +14,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let cart = currentUser.cart || [];
     cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-    function updateCurrentUser(user) {
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-        const index = users.findIndex((u) => u.email === user.email);
-
-        if (index !== -1) {
-            users[index] = user;
-            localStorage.setItem("users", JSON.stringify(users));
-        }
-
-        localStorage.setItem("currentUser", JSON.stringify(user));
+    async function updateCurrentUser(user) {
+        await usersStore.upsertUser(user);
+        currentUser = usersStore.getCurrentUser();
     }
 
-    function saveCart() {
+    async function saveCart() {
         currentUser.cart = cart;
-        updateCurrentUser(currentUser);
+        await updateCurrentUser(currentUser);
     }
 
     function renderCart() {
@@ -66,22 +59,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function addCartListeners() {
         document.querySelectorAll(".quantity-input").forEach((input) => {
-            input.addEventListener("change", (e) => {
+            input.addEventListener("change", async (e) => {
                 const index = Number(e.target.dataset.index);
                 let val = parseInt(e.target.value, 10);
 
                 if (!val || val < 1) val = 1;
                 cart[index].quantity = val;
-                saveCart();
+                await saveCart();
                 renderCart();
             });
         });
 
         document.querySelectorAll(".remove-btn").forEach((btn) => {
-            btn.addEventListener("click", (e) => {
+            btn.addEventListener("click", async (e) => {
                 const index = Number(e.target.dataset.index);
                 cart.splice(index, 1);
-                saveCart();
+                await saveCart();
                 renderCart();
             });
         });

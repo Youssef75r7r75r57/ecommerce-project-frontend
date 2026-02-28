@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const PRODUCTS_STORAGE_KEY = "productsData";
     const productImg = document.getElementById("product-img");
     const productName = document.getElementById("product-name");
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartCount = document.getElementById("cart-count");
     const relatedProductsList = document.getElementById("related-products-list");
 
-    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    let currentUser = await usersStore.syncCurrentUserFromStore();
     const params = new URLSearchParams(window.location.search);
     const productId = Number(params.get("id"));
 
@@ -27,13 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function updateCurrentUser(user) {
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-        const index = users.findIndex((u) => u.email === user.email);
-        if (index !== -1) users[index] = user;
-        localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("currentUser", JSON.stringify(user));
-        currentUser = user;
+    async function updateCurrentUser(user) {
+        await usersStore.upsertUser(user);
+        currentUser = usersStore.getCurrentUser();
     }
 
     async function loadProducts() {
@@ -61,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return true;
     }
 
-    function addProductToCart(product) {
+    async function addProductToCart(product) {
         if (!ensureLoggedIn()) return;
 
         currentUser.cart = currentUser.cart || [];
@@ -72,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
             currentUser.cart.push({ ...product, quantity: 1 });
         }
 
-        updateCurrentUser(currentUser);
+        await updateCurrentUser(currentUser);
         updateCartCount();
         alert(`${product.name} added to cart!`);
     }
@@ -121,8 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = `product.html?id=${item.id}`;
             });
 
-            card.querySelector(".related-add-btn").addEventListener("click", () => {
-                addProductToCart(item);
+            card.querySelector(".related-add-btn").addEventListener("click", async () => {
+                await addProductToCart(item);
             });
 
             relatedProductsList.appendChild(card);
@@ -159,12 +155,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             renderRelatedProducts(products, product);
 
-            addBtn.addEventListener("click", () => {
-                addProductToCart(product);
+            addBtn.addEventListener("click", async () => {
+                await addProductToCart(product);
             });
 
             if (wishlistBtn) {
-                wishlistBtn.addEventListener("click", () => {
+                wishlistBtn.addEventListener("click", async () => {
                     if (!ensureLoggedIn()) return;
 
                     currentUser.wishlist = currentUser.wishlist || [];
@@ -182,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     };
 
                     currentUser.wishlist.push(wishlistItem);
-                    updateCurrentUser(currentUser);
+                    await updateCurrentUser(currentUser);
                     alert(`${product.name} added to Wishlist!`);
                 });
             }

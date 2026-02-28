@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const productList = document.getElementById("product-list");
     const cartCount = document.getElementById("cart-count");
     const searchInput = document.getElementById("search-input");
@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const userInfo = document.getElementById("user-info");
     const PRODUCTS_STORAGE_KEY = "productsData";
 
-    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    let currentUser = await usersStore.syncCurrentUserFromStore();
 
     if (cartCount) {
         if (!currentUser) {
@@ -62,14 +62,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
 
-            card.querySelector(".add-btn").addEventListener("click", (e) => {
+            card.querySelector(".add-btn").addEventListener("click", async (e) => {
                 e.preventDefault();
-                addToCart(product);
+                await addToCart(product);
             });
 
-            card.querySelector(".wishlist-btn").addEventListener("click", (e) => {
+            card.querySelector(".wishlist-btn").addEventListener("click", async (e) => {
                 e.preventDefault();
-                addToWishlist(product);
+                await addToWishlist(product);
             });
 
             card.querySelector(".product-card-media").addEventListener("click", () => {
@@ -80,14 +80,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function addToCart(product) {
+    async function addToCart(product) {
         if (!currentUser) {
             alert("Please login first!");
             window.location.href = "login.html";
             return;
         }
 
-        let cart = currentUser.cart || [];
+        const cart = currentUser.cart || [];
         const existing = cart.find((item) => item.id === product.id);
         if (existing) {
             existing.quantity += 1;
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         currentUser.cart = cart;
-        updateCurrentUser(currentUser);
+        await updateCurrentUser(currentUser);
 
         if (cartCount) {
             cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert(`${product.name} added to cart!`);
     }
 
-    function addToWishlist(product) {
+    async function addToWishlist(product) {
         if (!currentUser) {
             alert("Please login first!");
             window.location.href = "login.html";
@@ -115,21 +115,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const exists = currentUser.wishlist.find((item) => item.id === product.id);
         if (!exists) {
             currentUser.wishlist.push(product);
-            updateCurrentUser(currentUser);
+            await updateCurrentUser(currentUser);
             alert(`${product.name} added to Wishlist!`);
         } else {
             alert(`${product.name} is already in your Wishlist!`);
         }
     }
 
-    function updateCurrentUser(user) {
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-        const index = users.findIndex((u) => u.email === user.email);
-        if (index !== -1) {
-            users[index] = user;
-            localStorage.setItem("users", JSON.stringify(users));
-        }
-        localStorage.setItem("currentUser", JSON.stringify(user));
+    async function updateCurrentUser(user) {
+        await usersStore.upsertUser(user);
+        currentUser = usersStore.getCurrentUser();
     }
 
     if (productList) {
@@ -174,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const logoutBtn = document.getElementById("logout-btn");
             logoutBtn.addEventListener("click", () => {
-                localStorage.removeItem("currentUser");
+                usersStore.clearCurrentUser();
                 location.reload();
             });
         } else {
@@ -184,4 +179,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderUser();
 });
-
