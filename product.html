@@ -6,18 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-translate="pageTitle">Product Details</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
-
-    <!-- Navbar -->
     <header class="navbar">
         <div class="logo">Dark<span>Wear</span></div>
         <nav>
             <ul class="nav-links">
-                <li><a href="index.html" class="active" data-translate="home">Home</a></li>
-                <li><a href="account.html" data-translate="account">account</a></li>
+                <li><a href="index.html" data-translate="home">Home</a></li>
+                <li><a href="account.html" data-translate="account">Account</a></li>
                 <li>
                     <a href="cart.html">
                         <i class="fa-solid fa-bag-shopping"></i>
@@ -28,24 +29,46 @@
         </nav>
     </header>
 
-    <!-- Product Detail Section -->
-    <section class="product-detail">
-        <div class="container">
-            <div class="product-image">
-                <img id="product-img" src="" alt="Product Image">
+    <section class="product-detail product-luxury">
+        <div class="product-shell">
+            <div class="product-media-panel">
+                <div class="product-image">
+                    <img id="product-img" src="" alt="Product Image">
+                </div>
+                <div class="product-media-note">
+                    <span><i class="fa-solid fa-shield-heart"></i> Premium Craft</span>
+                    <span><i class="fa-solid fa-truck-fast"></i> Express Delivery</span>
+                </div>
             </div>
-            <div class="product-info">
-                <h2 id="product-name" data-translate="productName">Product Name</h2>
+            <div class="product-info product-content-panel">
+                <div class="product-info-top">
+                    <span class="product-category-pill" id="product-category">Ready To Wear</span>
+                    <span class="product-id" id="product-id-label">SKU: -</span>
+                </div>
+                <h1 id="product-name" data-translate="productName">Product Name</h1>
                 <p class="price" id="product-price">$0</p>
                 <p class="description" id="product-desc">
                     This is a stylish product perfect for your collection.
                 </p>
-                <button id="add-to-cart-btn" class="btn" data-translate="addToCart">Add to Cart</button>
-                <button id="add-to-Wishlist-btn">♥</button>
-
-                <a href="index.html" class="btn" data-translate="backToStore">Back to Store</a>
+                <div class="luxury-benefits">
+                    <p><i class="fa-regular fa-circle-check"></i> Tailored fit with premium finishing</p>
+                    <p><i class="fa-regular fa-circle-check"></i> Easy return within 14 days</p>
+                    <p><i class="fa-regular fa-circle-check"></i> Secure payment and tracking</p>
+                </div>
+                <div class="product-actions">
+                    <button id="add-to-cart-btn" class="btn" data-translate="addToCart">Add to Cart</button>
+                    <button id="add-to-Wishlist-btn" class="icon-only-btn" aria-label="Add to wishlist"></button>
+                </div>
             </div>
         </div>
+    </section>
+
+    <section class="related-products-section">
+        <div class="related-products-head">
+            <h2>Explore More Pieces</h2>
+            <a href="index.html#products" class="related-products-link">View Full Collection</a>
+        </div>
+        <div id="related-products-list" class="product-grid related-products-grid"></div>
     </section>
 
     <script src="js/translations.js"></script>

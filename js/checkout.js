@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cartCount.textContent = count;
 
         userInfo.innerHTML = `
-            <span style="color:#d4af37; font-weight:600;">${currentUser.name}</span>
+            <span class="text-accent">${currentUser.name}</span>
             <i id="logout-btn" style="padding:5px 10px; font-size:0.8rem; margin-left:10px;" class="fa-solid fa-right-from-bracket">${translations[currentLang].logout}</i>
         `;
 

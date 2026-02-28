@@ -41,19 +41,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const row = document.createElement("tr");
             row.innerHTML = `
-        <td style="padding:10px; display:flex; align-items:center;">
-            <img src="${item.image}" alt="${item.name}" style="width:50px; height:50px; object-fit:cover; border-radius:5px; margin-right:10px;">
-            <span style="font-size:16px; font-weight:bold; color: #fff;">${item.name}</span>
+        <td class="cart-product-cell">
+            <img src="${item.image}" alt="${item.name}">
+            <span>${item.name}</span>
         </td>
-        <td style="padding:10px; font-size:16px; color: #fff;">$${item.price}</td>
-        <td style="padding:10px;">
+        <td>$${item.price}</td>
+        <td>
             <input type="number" class="quantity-input" min="1" value="${item.quantity}" data-index="${index}" 
-            style="width:50px; padding:5px; font-size:16px; text-align:center; border-radius:5px; border:1px solid #ccc;">
+            style="width:60px; text-align:center;">
         </td>
-        <td style="padding:10px; font-size:16px; font-weight:bold; color: #fff;">$${subtotal.toFixed(2)}</td>
-        <td style="padding:10px;">
-            <button class="remove-btn" data-index="${index}" 
-            style="padding:5px 10px; background-color:#f44336; color:#fff; border:none; border-radius:5px; cursor:pointer;">X</button>
+        <td><strong>$${subtotal.toFixed(2)}</strong></td>
+        <td>
+            <button class="remove-btn" data-index="${index}"></button>
         </td>
       `;
             cartTableBody.appendChild(row);

@@ -71,8 +71,7 @@ function renderNavbarUser() {
         : `Hi,  ${currentUser.name}`;
 
     userInfoEl.innerHTML = `
-        <span class="user-name" 
-            style="color:#d4af37; font-weight:600; display:inline-block;">
+        <span class="user-name text-accent" style="display:inline-block;">
             ${greetingText}
         </span>
             <i id="logout-btn" style="padding:5px 10px; font-size:0.8rem; margin-left:10px;" class="fa-solid fa-right-from-bracket">${translations[currentLang].logout}</i>`;
@@ -162,7 +161,7 @@ function renderNavbarUser() {
         ordersTableBody.innerHTML = "";
         const orders = currentUser.orders || [];
         if (orders.length === 0) {
-            ordersTableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;opacity:0.7;">${translations[currentLang].noOrders}</td></tr>`;
+            ordersTableBody.innerHTML = `<tr><td colspan="4" class="muted-cell">${translations[currentLang].noOrders}</td></tr>`;
             return;
         }
 
@@ -205,7 +204,7 @@ function renderNavbarUser() {
         wishlistGrid.innerHTML = "";
         const wishlist = currentUser.wishlist || [];
         if (wishlist.length === 0) {
-            wishlistGrid.innerHTML = `<p style="opacity:0.7; color: #ccc;">${translations[currentLang].emptyWishlist}</p>`;
+            wishlistGrid.innerHTML = `<p class="muted-cell">${translations[currentLang].emptyWishlist}</p>`;
             return;
         }
 
@@ -217,10 +216,10 @@ function renderNavbarUser() {
   <div class="info" style="text-align:center;">
     <h4 style="margin:8px 0 4px;">${p.name}</h4>
     <p class="price" style="margin:0 0 10px;">$${p.price}</p>
-    <div style="justify-content:center; display:flex; gap:8px; align-items:center;">
+    <div style="justify-content:center; grid-template-columns: repeat(2, minmax(30px, 1fr)); display:grid; gap:8px; align-items:center;">
+    <button class="btn-small add-wish-to-cart">${translations[currentLang].addToCart}</button>
       <a href="product.html?id=${p.id}" class="btn-small">${translations[currentLang].view}</a>
-      <button class="btn-small add-wish-to-cart">${translations[currentLang].addToCart}</button>
-      <button class="btn-small remove-from-wishlist" style="background:#f44336;">${translations[currentLang].remove}</button>
+      <button style="grid-column: 1 / -1;" class="remove-from-wishlist danger-btn">${translations[currentLang].remove}</button>
     </div>
   </div>
 `;
@@ -289,7 +288,7 @@ function renderNavbarUser() {
         ordersTableBody.innerHTML = "";
         const orders = currentUser.orders || [];
         if (orders.length === 0) {
-            ordersTableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;opacity:0.7;">${translations[currentLang].noOrders}</td></tr>`;
+            ordersTableBody.innerHTML = `<tr><td colspan="4" class="muted-cell">${translations[currentLang].noOrders}</td></tr>`;
             return;
         }
 

@@ -44,29 +44,21 @@ document.addEventListener("DOMContentLoaded", () => {
             card.style.animationDelay = `${index * 0.2}s`;
 
             card.innerHTML = `
-                <img src="${product.image}" alt="${product.name}">
+                <div class="product-card-media">
+                    <img src="${product.image}" alt="${product.name}" loading="lazy">
+                </div>
                 <div class="info">
-                    <h3>${product.name}</h3>
-                    <p class="price">$${product.price}</p>
-                    <a href="#" class="add-btn">${translations[currentLang].addToCart}</a>
-                    <a href="#" class="wishlist-btn" title="Add to Wishlist" style="
-                        display:inline-block;
-                        width:30px;
-                        height:30px;
-                        line-height:27px;
-                        text-align:center;
-                        font-size:20px;
-                        color:#fffb00;
-                        background-color:#000;
-                        border:1px solid #fffb00;
-                        border-radius:50%;
-                        text-decoration:none;
-                        cursor:pointer;
-                        transition: all 0.2s ease;
-                    "
-                    onmouseover="this.style.backgroundColor='#000'; this.style.color='#fff';"
-                    onmouseout="this.style.backgroundColor='#000'; this.style.color='#fffb00';"
-                    >♥</a>
+                    <h3 class="product-title">${product.name}</h3>
+                    <div class="product-meta">
+                        <p class="price">$${Number(product.price).toFixed(2)}</p>
+                        <span class="product-category-chip">${product.category}</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="#" class="add-btn">${translations[currentLang].addToCart}</a>
+                        <a href="#" class="wishlist-btn" title="Add to Wishlist" aria-label="Add to Wishlist">
+                            <i class="fa-solid fa-heart"></i>
+                        </a>
+                    </div>
                 </div>
             `;
 
@@ -80,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 addToWishlist(product);
             });
 
-            card.querySelector("img").addEventListener("click", () => {
+            card.querySelector(".product-card-media").addEventListener("click", () => {
                 window.location.href = `product.html?id=${product.id}`;
             });
 
@@ -176,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (currentUser) {
             userInfo.innerHTML = `
-                <span style="color:#d4af37; font-weight:600;">${currentUser.name}</span>
+                <span class="text-accent">${currentUser.name}</span>
                 <i id="logout-btn" style="padding:5px 10px; font-size:0.8rem; margin-left:10px;" class="fa-solid fa-right-from-bracket">${translations[currentLang].logout}</i>
             `;
 
@@ -192,3 +184,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderUser();
 });
+

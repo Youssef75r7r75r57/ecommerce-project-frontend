@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         ordersBody.innerHTML = "";
         if (allOrders.length === 0) {
-            ordersBody.innerHTML = `<tr><td colspan="7" style="text-align:center;opacity:.7;">${t("noOrdersAdmin", "No orders found.")}</td></tr>`;
+            ordersBody.innerHTML = `<tr><td colspan="7" class="muted-cell">${t("noOrdersAdmin", "No orders found.")}</td></tr>`;
             return;
         }
 
@@ -132,19 +132,19 @@ document.addEventListener("DOMContentLoaded", async () => {
             const productsText = (order.products || []).map((p) => `${p.name} x${p.quantity}`).join(", ");
 
             tr.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${user.name || "-"}<br><small>${user.email || ""}</small></td>
-                <td>${productsText || "-"}</td>
-                <td>$${Number(order.total || 0).toFixed(2)}</td>
-                <td>
+                <td data-label="#">${index + 1}</td>
+                <td data-label="${t("customer", "Customer")}">${user.name || "-"}<br><small>${user.email || ""}</small></td>
+                <td data-label="${t("products", "Products")}" class="admin-products-cell">${productsText || "-"}</td>
+                <td data-label="${t("total", "Total")}">$${Number(order.total || 0).toFixed(2)}</td>
+                <td data-label="${t("status", "Status")}">
                     <select class="admin-status-select" data-user="${userIndex}" data-order="${orderIndex}">
                         <option value="Pending" ${order.status === "Pending" ? "selected" : ""}>Pending</option>
                         <option value="Completed" ${order.status === "Completed" ? "selected" : ""}>Completed</option>
                         <option value="Cancelled" ${order.status === "Cancelled" ? "selected" : ""}>Cancelled</option>
                     </select>
                 </td>
-                <td>${order.date || "-"}</td>
-                <td><button class="btn-small admin-delete-order" data-user="${userIndex}" data-order="${orderIndex}" style="background:#f44336;color:#fff;">${t("deleteAction", "Delete")}</button></td>
+                <td data-label="${t("date", "Date")}">${order.date || "-"}</td>
+                <td data-label="${t("actions", "Actions")}" class="admin-actions-cell"><button class="btn-small admin-delete-order danger-btn" data-user="${userIndex}" data-order="${orderIndex}">${t("deleteAction", "Delete")}</button></td>
             `;
             ordersBody.appendChild(tr);
         });
@@ -211,20 +211,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         productsBody.innerHTML = "";
 
         if (!products.length) {
-            productsBody.innerHTML = `<tr><td colspan="5" style="text-align:center;opacity:.7;">${t("noProductsAdmin", "No products found.")}</td></tr>`;
+            productsBody.innerHTML = `<tr><td colspan="5" class="muted-cell">${t("noProductsAdmin", "No products found.")}</td></tr>`;
             return;
         }
 
         products.forEach((product) => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
-                <td>${product.id}</td>
-                <td>${product.name}</td>
-                <td>${product.category}</td>
-                <td>$${Number(product.price).toFixed(2)}</td>
-                <td>
+                <td data-label="ID">${product.id}</td>
+                <td data-label="${t("product", "Product")}">${product.name}</td>
+                <td data-label="${t("category", "Category")}">${product.category}</td>
+                <td data-label="${t("price", "Price")}">$${Number(product.price).toFixed(2)}</td>
+                <td data-label="${t("actions", "Actions")}" class="admin-actions-cell">
                     <button class="btn-small admin-edit-product" data-id="${product.id}">${t("editAction", "Edit")}</button>
-                    <button class="btn-small admin-delete-product" data-id="${product.id}" style="background:#f44336;color:#fff;">${t("deleteAction", "Delete")}</button>
+                    <button class="btn-small admin-delete-product danger-btn" data-id="${product.id}">${t("deleteAction", "Delete")}</button>
                 </td>
             `;
             productsBody.appendChild(tr);
@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     function renderNavbarUser() {
         if (!userInfoEl) return;
         userInfoEl.innerHTML = `
-            <span style="color:#d4af37; font-weight:600;">${currentUser.name}</span>
+            <span class="text-accent">${currentUser.name}</span>
             <i id="logout-btn" style="padding:5px 10px; font-size:0.8rem; margin-left:10px;" class="fa-solid fa-right-from-bracket">${translations[currentLang].logout}</i>
         `;
 
