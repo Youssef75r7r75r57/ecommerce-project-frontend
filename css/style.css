@@ -1537,6 +1537,7 @@ h1, h2, h3, h4 {
 .wishlist-grid .product-card img {
     height: 200px;
     object-fit: cover;
+    width: -webkit-fill-available;
 }
 
 .checkout-layout {
