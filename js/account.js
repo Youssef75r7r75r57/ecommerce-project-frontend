@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const settingsForm = document.getElementById("settings-form");
     const tabs = document.querySelectorAll(".tab-link");
     const tabContents = document.querySelectorAll(".tab");
+    const adminPanelLink = document.getElementById("admin-panel-link");
+    const ADMIN_EMAIL = "youssefadmin@gmail.com";
 
     // load current user
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -20,6 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Please login first!");
         window.location.href = "login.html";
         return;
+    }
+
+    // Show admin link only for the allowed admin email
+    if (adminPanelLink) {
+        const isAllowedAdmin = (currentUser.email || "").trim().toLowerCase() === ADMIN_EMAIL;
+        adminPanelLink.style.display = isAllowedAdmin ? "list-item" : "none";
     }
 
     // utility: save currentUser and users list
