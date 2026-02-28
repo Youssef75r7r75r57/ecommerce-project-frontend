@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tabContents = document.querySelectorAll(".tab");
     const adminPanelLink = document.getElementById("admin-panel-link");
     const ADMIN_EMAIL = "youssefadmin@gmail.com";
+    const ADMIN_PASSWORD = "adminY&M2005";
 
     // load current user
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
