@@ -753,6 +753,11 @@ td {
         border-radius: 8px; /* اختياري لجعل الشكل أجمل */
         text-align: center; /* اختياري لجعل النص في المنتصف */
     }
+    .wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(200px, 1fr));
+    gap: 15px;
+}
 }
 /* ============================================= */
 
