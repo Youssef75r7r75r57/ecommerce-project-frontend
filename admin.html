@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="adminPanel">Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">Dark<span>Wear</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html" data-translate="home">Store</a></li>
+            <li><a href="admin.html" class="active" data-translate="adminPanel">Admin Panel</a></li>
+            <li id="user-info"></li>
+        </ul>
+    </nav>
+
+    <section class="admin-section">
+        <h2 class="section-title" data-translate="adminPanel">Admin Panel</h2>
+
+        <div id="admin-guard-message" class="admin-guard-message" style="display:none;"></div>
+
+        <div id="admin-content">
+            <div class="admin-tabs">
+                <button class="admin-tab-btn active" data-tab="orders-tab" data-translate="manageOrders">Manage Orders</button>
+                <button class="admin-tab-btn" data-tab="products-tab" data-translate="manageProducts">Manage Products</button>
+            </div>
+
+            <div id="orders-tab" class="admin-tab active">
+                <div class="admin-card">
+                    <h3 data-translate="manageOrders">Manage Orders</h3>
+                    <div class="table-wrap">
+                        <table id="admin-orders-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th data-translate="customer">Customer</th>
+                                    <th data-translate="products">Products</th>
+                                    <th data-translate="total">Total</th>
+                                    <th data-translate="status">Status</th>
+                                    <th data-translate="date">Date</th>
+                                    <th data-translate="actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="products-tab" class="admin-tab">
+                <div class="admin-card">
+                    <h3 data-translate="manageProducts">Manage Products</h3>
+                    <form id="product-form" class="admin-form">
+                        <input type="hidden" id="product-id">
+
+                        <label for="product-name" data-translate="productName">Product Name</label>
+                        <input id="product-name" type="text" required>
+
+                        <label for="product-category" data-translate="category">Category</label>
+                        <select id="product-category" required>
+                            <option value="Men">Men</option>
+                            <option value="Women">Women</option>
+                            <option value="Accessories">Accessories</option>
+                        </select>
+
+                        <label for="product-price" data-translate="price">Price</label>
+                        <input id="product-price" type="number" min="1" step="0.01" required>
+
+                        <label for="product-image" data-translate="imageUrl">Image URL</label>
+                        <input id="product-image" type="url" required>
+
+                        <div class="admin-form-actions">
+                            <button type="submit" class="btn" data-translate="saveProduct">Save Product</button>
+                            <button type="button" id="reset-product-form" class="btn secondary-btn"
+                                data-translate="resetForm">Reset</button>
+                        </div>
+                    </form>
+
+                    <div class="table-wrap">
+                        <table id="admin-products-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th data-translate="product">Product</th>
+                                    <th data-translate="category">Category</th>
+                                    <th data-translate="price">Price</th>
+                                    <th data-translate="actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/translations.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

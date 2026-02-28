@@ -2,15 +2,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartTableBody = document.querySelector("#cart-table tbody");
     const totalPriceEl = document.getElementById("total-price");
     const cartCount = document.getElementById("cart-count");
+    const checkoutBtn = document.getElementById("checkout-btn");
 
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (!currentUser) {
         alert("Please login first!");
         window.location.href = "login.html";
+        return;
     }
 
     let cart = currentUser.cart || [];
     cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    function updateCurrentUser(user) {
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const index = users.findIndex((u) => u.email === user.email);
+
+        if (index !== -1) {
+            users[index] = user;
+            localStorage.setItem("users", JSON.stringify(users));
+        }
+
+        localStorage.setItem("currentUser", JSON.stringify(user));
+    }
+
+    function saveCart() {
+        currentUser.cart = cart;
+        updateCurrentUser(currentUser);
+    }
 
     function renderCart() {
         cartTableBody.innerHTML = "";
@@ -47,20 +66,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function addCartListeners() {
-        document.querySelectorAll(".quantity-input").forEach(input => {
+        document.querySelectorAll(".quantity-input").forEach((input) => {
             input.addEventListener("change", (e) => {
-                const index = e.target.dataset.index;
-                let val = parseInt(e.target.value);
-                if (val < 1) val = 1;
+                const index = Number(e.target.dataset.index);
+                let val = parseInt(e.target.value, 10);
+
+                if (!val || val < 1) val = 1;
                 cart[index].quantity = val;
                 saveCart();
                 renderCart();
             });
         });
 
-        document.querySelectorAll(".remove-btn").forEach(btn => {
+        document.querySelectorAll(".remove-btn").forEach((btn) => {
             btn.addEventListener("click", (e) => {
-                const index = e.target.dataset.index;
+                const index = Number(e.target.dataset.index);
                 cart.splice(index, 1);
                 saveCart();
                 renderCart();
@@ -68,57 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function saveCart() {
-        currentUser.cart = cart;
-        updateCurrentUser(currentUser);
-    }
-
-    function updateCurrentUser(user) {
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-        const index = users.findIndex(u => u.email === user.email);
-        if (index !== -1) {
-            users[index] = user;
-            localStorage.setItem("users", JSON.stringify(users));
+    checkoutBtn.addEventListener("click", () => {
+        if (cart.length === 0) {
+            alert("Cart is empty!");
+            return;
         }
-        localStorage.setItem("currentUser", JSON.stringify(user));
-    }
 
-document.getElementById("checkout-btn").addEventListener("click", () => {
-    if (cart.length === 0) {
-        alert("Cart is empty!");
-        return;
-    }
-
-    // إنشاء الطلب
-    const order = {
-        products: cart.map(p => ({ id: p.id, name: p.name, price: p.price, quantity: p.quantity })),
-        total: cart.reduce((sum, p) => sum + p.price * p.quantity, 0),
-        status: "Pending",
-        date: new Date().toLocaleString()
-    };
-
-    // إضافة الطلب للمستخدم الحالي
-    currentUser.orders = currentUser.orders || [];
-    currentUser.orders.push(order);
-
-    // تفريغ السلة
-    cart = [];
-    currentUser.cart = cart;
-
-    // تحديث LocalStorage
-    updateCurrentUser(currentUser);
-
-    renderCart();
-    alert("Order placed successfully!");
-});
-
-function updateCurrentUser(user) {
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    const index = users.findIndex(u => u.email === user.email);
-    if (index !== -1) users[index] = user;
-    localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("currentUser", JSON.stringify(user));
-};
+        window.location.href = "checkout.html";
+    });
 
     renderCart();
 });

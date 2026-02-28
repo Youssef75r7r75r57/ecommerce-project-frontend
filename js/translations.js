@@ -80,6 +80,21 @@ const translations = {
     addToCart: "Add to Cart",
     remove: "Remove",
     hi: "hi",
+    shippingInfo: "Shipping Information",
+    fullName: "Full Name",
+    phone: "Phone",
+    address: "Address",
+    city: "City",
+    orderNotes: "Order Notes",
+    orderSummary: "Order Summary",
+    shipping: "Shipping",
+    backToCart: "Back to Cart",
+    placeOrder: "Place Order",
+    fullNamePlaceholder: "Enter your full name",
+    phonePlaceholder: "Enter phone number",
+    addressPlaceholder: "Street address",
+    cityPlaceholder: "Enter city",
+    orderNotesPlaceholder: "Any notes for delivery?",
     },
 
     ar: {
@@ -157,6 +172,21 @@ const translations = {
     addToCart: "أضف إلى السلة",
     remove: "إزالة",
     hi: "مرحبا",
+    shippingInfo: "معلومات الشحن",
+    fullName: "الاسم الكامل",
+    phone: "الهاتف",
+    address: "العنوان",
+    city: "المدينة",
+    orderNotes: "ملاحظات الطلب",
+    orderSummary: "ملخص الطلب",
+    shipping: "الشحن",
+    backToCart: "العودة إلى السلة",
+    placeOrder: "تأكيد الطلب",
+    fullNamePlaceholder: "ادخل الاسم الكامل",
+    phonePlaceholder: "ادخل رقم الهاتف",
+    addressPlaceholder: "ادخل العنوان",
+    cityPlaceholder: "ادخل المدينة",
+    orderNotesPlaceholder: "أي ملاحظات للتوصيل؟",
     },
 };
 
@@ -205,4 +235,38 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("appSettings", JSON.stringify(appSettings));
         });
     }
+});
+
+Object.assign(translations.en, {
+    adminPanel: "Admin Panel",
+    manageOrders: "Manage Orders",
+    manageProducts: "Manage Products",
+    customer: "Customer",
+    actions: "Actions",
+    category: "Category",
+    imageUrl: "Image URL",
+    saveProduct: "Save Product",
+    resetForm: "Reset",
+    editAction: "Edit",
+    deleteAction: "Delete",
+    noOrdersAdmin: "No orders found.",
+    noProductsAdmin: "No products found.",
+    adminAccessDenied: "You are not authorized to open this page."
+});
+
+Object.assign(translations.ar, {
+    adminPanel: "لوحة الأدمن",
+    manageOrders: "إدارة الطلبات",
+    manageProducts: "إدارة المنتجات",
+    customer: "العميل",
+    actions: "الإجراءات",
+    category: "الفئة",
+    imageUrl: "رابط الصورة",
+    saveProduct: "حفظ المنتج",
+    resetForm: "إعادة",
+    editAction: "تعديل",
+    deleteAction: "حذف",
+    noOrdersAdmin: "لا توجد طلبات.",
+    noProductsAdmin: "لا توجد منتجات.",
+    adminAccessDenied: "ليس لديك صلاحية لدخول هذه الصفحة."
 });

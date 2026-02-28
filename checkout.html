@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="checkout">Checkout</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">Dark<span>Wear</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html" data-translate="home">Home</a></li>
+            <li><a href="account.html" data-translate="account">Account</a></li>
+            <li><a href="index.html#products" data-translate="products">Products</a></li>
+            <li>
+                <a href="cart.html">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </li>
+            <li id="user-info"></li>
+        </ul>
+    </nav>
+
+    <section class="checkout-section">
+        <h2 class="section-title" data-translate="checkout">Checkout</h2>
+
+        <div class="checkout-layout">
+            <form id="checkout-form" class="checkout-card">
+                <h3 data-translate="shippingInfo">Shipping Information</h3>
+
+                <label for="full-name" data-translate="fullName">Full Name</label>
+                <input id="full-name" type="text" data-translate-placeholder="fullNamePlaceholder"
+                    placeholder="Enter your full name" required>
+
+                <label for="phone" data-translate="phone">Phone</label>
+                <input id="phone" type="tel" data-translate-placeholder="phonePlaceholder" placeholder="Enter phone number"
+                    required>
+
+                <label for="address" data-translate="address">Address</label>
+                <input id="address" type="text" data-translate-placeholder="addressPlaceholder"
+                    placeholder="Street address" required>
+
+                <label for="city" data-translate="city">City</label>
+                <input id="city" type="text" data-translate-placeholder="cityPlaceholder" placeholder="Enter city" required>
+
+                <label for="notes" data-translate="orderNotes">Order Notes</label>
+                <textarea id="notes" rows="4" data-translate-placeholder="orderNotesPlaceholder"
+                    placeholder="Any notes for delivery?"></textarea>
+
+                <button type="submit" class="btn" data-translate="placeOrder">Place Order</button>
+            </form>
+
+            <aside class="checkout-card order-summary">
+                <h3 data-translate="orderSummary">Order Summary</h3>
+                <div id="checkout-items"></div>
+                <div class="summary-row">
+                    <span data-translate="subtotal">Subtotal</span>
+                    <span>$<span id="summary-subtotal">0.00</span></span>
+                </div>
+                <div class="summary-row">
+                    <span data-translate="shipping">Shipping</span>
+                    <span>$<span id="summary-shipping">5.00</span></span>
+                </div>
+                <div class="summary-row total-row">
+                    <span data-translate="total">Total</span>
+                    <span>$<span id="summary-total">0.00</span></span>
+                </div>
+                <a href="cart.html" class="btn secondary-btn" data-translate="backToCart">Back to Cart</a>
+            </aside>
+        </div>
+    </section>
+
+    <script src="js/translations.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+
+</html>
